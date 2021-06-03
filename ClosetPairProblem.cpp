@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <windows.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -27,7 +28,8 @@ int main ()
 		{
 			do
 			{	
-				n = rand() % 20 + 1;  		
+				srand(time(0));
+				n = rand() % size + 1;  		
 			
 				//check or number is already used:
 				check=true;
@@ -48,16 +50,30 @@ int main ()
 		{
 			chairsarray[i] = 0;
 		}
-		
-		
-		
-	}     
+	}    
 	
-	for (int i = 0; i < size; i++)
+	int guestchairs[gst];
+	
+	for (int i = 0; i < gst; i++)
 	{
-		cout<< chairsarray[i] << " ";
+		guestchairs[i] = chairsarray[i];
 	}
-    		
+
+	int n = sizeof(guestchairs) / sizeof(guestchairs[0]);	
+	sort(guestchairs, guestchairs + n);
+	
+	
+	int median = (gst/2) - 1;
+	
+	
+	
+		
+	/*for (int i = 0; i < gst; i++)
+	{
+		cout<< guestchairs[i] << " ";
+	}*/
+
 	return 0;
 }
+
 
