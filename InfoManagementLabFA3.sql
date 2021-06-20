@@ -1,7 +1,7 @@
 create table customer
 (
     customer_ID		             number(11)    primary key,
-    customer_fname 	           varchar2(100) not null,
+    customer_lname 	           varchar2(100) not null,
     customer_fname             varchar2(100) not null
 )
 
@@ -12,13 +12,13 @@ create table item
     item_quantity              varchar2(100) not null check(item_quantity >= 0)
 )
 
-create table order
+create table orders
 (
-    order_ID                    number(11)    primary key,
-    order_date  	       	      date,
-    order_customer_ID           number(11)    not null,
+    orders_ID                    number(11)    primary key,
+    orders_date  	       	       date,
+    orders_customer_ID           number(11)    not null,
 
-    constraint orders_customer_fk foreign key(order_customer_ID) references customer(customer_ID)
+    constraint orders_customer_fk foreign key(orders_customer_ID) references customer(customer_ID)
 )
 
 create table product
@@ -45,7 +45,7 @@ CREATE TABLE REQUESTS
   R_ORDER_ID           NUMBER(11)        NOT NULL,
   R_PRODUCT_ID          NUMBER(11)        NOT NULL,
 
-  CONSTRAINT REQUESTS_ORDER_FK FOREIGN KEY(R_ORDES_ID) REFERENCES order(order_ID),
+  CONSTRAINT REQUESTS_ORDER_FK FOREIGN KEY(R_ORDES_ID) REFERENCES orders(orders_ID),
   CONSTRAINT REQUESTS_PRODUCT_FK FOREIGN KEY(R_PRODUCT_ID) REFERENCES product(product_ID)
 );
 
