@@ -83,3 +83,29 @@ CREATE TABLE SUPPLIER_ITEM
   CONSTRAINT SUPPLIES_SUPPLIER_FK FOREIGN KEY(SUI_SUPPLIER_ID) REFERENCES SUPPLIER(S_ID),
   CONSTRAINT SUPPLIES_ITEM_FK FOREIGN KEY(SUI_ITEM_ID) REFERENCES item(item_ID)
 );
+
+--
+
+alter table customer add (customer_address varchar2(100), customer_postalcode varchar2(100), customer_province varchar2(100), customer_zipcode varchar2(100))
+
+alter table item rename column item_quantity to item_qty
+
+rename item_product to detailsofproduct
+rename shipment_item to shipmentdetails
+rename supplier_item to suppliersinvoice
+
+alter table product modify product_category varchar2(600)
+
+create table temptable
+(
+    store_id        char(10) primary key,
+    store_name varchar2(30) not null
+)
+
+drop table temptable
+
+flashback table temptable to before drop
+
+alter table temptable read only
+
+comment on column customer.customer_ID IS 'ID of the customer'
