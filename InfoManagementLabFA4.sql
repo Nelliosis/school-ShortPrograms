@@ -37,3 +37,16 @@ VALUES ('MK_ASST', 'Marketing Assistant', 3000, 13000)
 
 INSERT INTO employees (employee_id, first_name, last_name, email, phone_number, hire_date, job_id, salary, department_id)
 VALUES (500, 'Alicia', 'Santos', 'ASANTOS', '650.124.0000', '03/24/1999', 'MK_ASST', 10000, 20)
+
+UPDATE EMPLOYEES
+SET LAST_NAME = 'Delos Santos', SALARY = 12500
+WHERE EMPLOYEE_ID = 500;
+
+SAVEPOINT SPEmp500;
+
+delete from employees
+where employee_id = '500'
+
+rollback
+
+CREATE VIEW EMPLOYEE AS SELECT * FROM EMPLOYEES
