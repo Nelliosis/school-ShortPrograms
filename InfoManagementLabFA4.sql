@@ -1,3 +1,5 @@
+--M7 script
+
 SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME FROM EMPLOYEES
 WHERE MANAGER_ID = 114
 
@@ -50,3 +52,66 @@ where employee_id = '500'
 rollback
 
 CREATE VIEW EMPLOYEE AS SELECT * FROM EMPLOYEES
+
+
+--M8 script
+
+SELECT LOCATION_ID, STREET_ADDRESS, CITY, STATE_PROVINCE, COUNTRY_NAME
+FROM LOCATIONS NATURAL JOIN COUNTRIES
+
+SELECT LAST_NAME, DEPARTMENT_ID, DEPARTMENT_NAME
+FROM EMPLOYEES
+JOIN DEPARTMENTS
+USING (DEPARTMENT_ID);
+
+SELECT e.last_name, e.job_id, e.department_id, d.department_name
+FROM employees e JOIN departments d
+ON (e.department_id = d.department_id)
+JOIN locations l
+ON (d.location_id = l.location_id)
+WHERE LOWER(l.city) = 'toronto';
+
+SELECT w.last_name "Employee", w.employee_id "Emp#",
+       m.last_name "Manager", m.employee_id "Mgr#"
+FROM employees w JOIN employees m
+ON (w.manager_id = m.employee_id);
+
+SELECT w.last_name "Employee", w.employee_id "Emp#",
+       m.last_name "Manager", m.employee_id "Mgr#"
+FROM employees w LEFT JOIN employees m
+ON (w.manager_id = m.employee_id);
+
+SELECT e.department_id as "DEPARTMENT", e.last_name as "EMPLOYEE", e2.last_name as "COWORKER"
+FROM employees e JOIN employees e2
+ON (e.department_id = e2.department_id)
+WHERE e.employee_id <> e2.employee_id
+ORDER BY e.department_id, e.last_name, e2.last_name;
+
+DESC JOB_GRADES
+
+SELECT e.last_name, e.job_id, d.department_name, e.salary, j.grade_level FROM employees e
+JOIN departments d ON (e.department_id = d.department_id)
+JOIN  job_grades j ON (e.salary BETWEEN j.lowest_sal AND j.highest_sal);
+
+select last_name, hire_date
+from employees
+where department_id =
+(select department_id from employees where last_name like :vlname) and last_name <> :vlname
+
+select employee_id, last_name, salary from employees
+where salary > (select avg(salary) from employees)
+order by salary;
+
+SELECT EMPLOYEE_ID, LAST_NAME FROM EMPLOYEES
+WHERE LAST_NAME LIKE '%u%'
+
+select last_name, department_id, job_id
+from employees
+where department_id in (select department_id from departments where location_id = :vLocation)
+
+select last_name, salary
+from employees
+where manager_id in (select employee_id from employees where last_name='King');
+
+select department_id, last_name, job_id from employees
+where department_id in (select department_id from departments where department_name = 'Executive');
