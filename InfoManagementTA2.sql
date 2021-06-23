@@ -1,3 +1,5 @@
+--Part 1
+
 CREATE TABLE TASKS
 (
   TASKS_ID_TASK             VARCHAR2(11)                PRIMARY KEY,
@@ -63,3 +65,19 @@ CREATE TABLE TIME_SHEET_HOUR
   CONSTRAINT TIME_SHEET_HOUR_TIME_CATEGORY_ID_FK FOREIGN KEY(TIME_SHEET_HOUR_TIME_CATEGORY_ID) REFERENCES TIME_CATEGORY(TIME_CATEGORY_ID),
   CONSTRAINT TIME_SHEET_HOUR_TASK_ID_FK FOREIGN KEY(TIME_SHEET_HOUR_TASK_ID) REFERENCES TASKS(TASKS_ID_TASK)
 )
+
+--part 2
+
+create table jobs2 as select * from jobs
+
+alter table jobs2
+add job_category varchar(100)
+
+insert into jobs2 values ('ST_ASSIST', 'Stock Aid', '5000', '13000', 'M_Operator')
+
+select job_id, job_title, SUM(min_salary), AVG(min_salary) from jobs2
+where job_title like '%Representative' and min_salary < 5000
+group by job_id, job_title
+order by job_id
+
+--part 3
